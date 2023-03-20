@@ -1,0 +1,31 @@
+table:
+  schema: public
+  name: roles
+is_enum: true
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - access
+        - name
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - access
+        - name
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - access
+        - name
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: user
+    permission:
+      backend_only: false
+      filter: {}

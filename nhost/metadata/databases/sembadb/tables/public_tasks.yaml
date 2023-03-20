@@ -1,0 +1,36 @@
+table:
+  schema: public
+  name: tasks
+object_relationships:
+  - name: assigned_user
+    using:
+      foreign_key_constraint_on: assignee_id
+  - name: task
+    using:
+      foreign_key_constraint_on: parent_issue_id
+array_relationships:
+  - name: comments
+    using:
+      foreign_key_constraint_on:
+        column: issue_id
+        table:
+          schema: public
+          name: comments
+  - name: labels
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: tasks_label
+        insertion_order: null
+        column_mapping:
+          id: task_id
+  - name: stages
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: stages
+        insertion_order: null
+        column_mapping:
+          id: task_id

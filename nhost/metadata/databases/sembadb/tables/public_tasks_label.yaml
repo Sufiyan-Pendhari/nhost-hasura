@@ -1,0 +1,39 @@
+table:
+  schema: public
+  name: tasks_label
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - label
+        - id
+        - organization_id
+        - project_id
+        - task_id
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - label
+        - id
+        - organization_id
+        - project_id
+        - task_id
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - label
+        - id
+        - organization_id
+        - project_id
+        - task_id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: user
+    permission:
+      backend_only: false
+      filter: {}

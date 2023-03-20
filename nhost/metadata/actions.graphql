@@ -1,152 +1,231 @@
 type Mutation {
-  assign_shift(
-    shift_id: uuid!
-    worker_id: uuid!
-  ): ActionOutput
-}
-
-type Mutation {
-  cancel_shift(
-    shift_id: uuid!
-    worker_id: uuid!
-  ): ActionOutput
-}
-
-type Query {
-  client_users: ActionOutput
-}
-
-type Mutation {
-  create_shift(
-    request_from: String!
-    worker_role_id: Int!
-    data: json!
-  ): ActionOutput
-}
-
-type Query {
-  find_shift(
-    latitude: Float
-    longitude: Float
-    postcode: String
-    worker_role_ids: [Int!]!
-    filters: json
-  ): ActionOutput
-}
-
-type Query {
-  geocode(
-    post_code: String!
-  ): GeocodeOutput
-}
-
-type Mutation {
-  manager_operations(
-    action: String!
-    name: String!
-    phone: String!
-    manager_role_id: Int
-    client_id: uuid!
-    manager_id: uuid
+  forgot_password(
     email: String
-  ): ActionOutput
+  ): forgotPasswordOutput
 }
 
 type Mutation {
-  modify_shift(
+  registration(
+    name: String
+    website: String
+    firstName: String
+    lastName: String
+    email: String
+  ): RegistrationOutput
+}
+
+type Mutation {
+  resend_code(
+    email: String
+  ): ResendCodeOutput
+}
+
+type Mutation {
+  send_invite(
+    emails: String
+    id: uuid
+    invitedProjectId: uuid
+  ): SendInviteOutput
+}
+
+type Mutation {
+  set_password(
     id: uuid!
-    action: String!
-    data: json
-  ): ActionOutput
+    userId: uuid!
+    password: String!
+    cnfPassword: String!
+  ): setPasswordOutput
 }
 
 type Mutation {
-  onboard_user(
-    user_id: uuid!
-    location_id: String
-  ): ActionOutput
+  sign_in(
+    email: String!
+    password: String!
+  ): SignInOutput
 }
 
 type Mutation {
-  payment_operations(
-    operation: String!
-    payment_method: String
-  ): CardOperationResult
+  sign_up(
+    password: String!
+    email: String!
+  ): SignUpOutput
 }
 
 type Mutation {
-  request_payout(
-    amount: Int!
-  ): ActionOutput
+  update_user(
+    firstName: String
+    lastName: String
+    email: String
+  ): UserInfoOutput
 }
 
 type Mutation {
-  set_fcm_token(
-    token: String!
-  ): ActionOutput
+  verification(
+    id: uuid!
+    userId: uuid!
+    code: String!
+  ): verificationOutput
 }
 
 type Mutation {
-  slack_notification(
-    message: String!
-  ): ActionOutput
+  verify_sign_up(
+    id: uuid!
+    userId: uuid!
+    code: String!
+  ): VerifySignUpOutput
 }
 
-type Mutation {
-  upload_file(
-    fileName: String!
-    file: String!
-  ): UploadOutput
+input RegisterInput {
+  companyName: String!
+  firstName: String!
+  lastName: String!
+  password: String!
+  email: String!
 }
 
-type Query {
-  verify_user(
-    phone_number: String!
-  ): VerifyUserOutput
+input SignUpInput {
+  password: String!
+  email: String!
 }
 
-type Query {
-  worker_earnings(
-    worker_id: uuid!
-    start_time: String
-    end_time: String
-  ): ActionOutput
+input SignInInput {
+  email: String!
+  password: String!
 }
 
-input cardValues {
-  stripe_customer_id: String!
-  payment_method: String
-  source: jsonb
-  card_id: String
-  account_id: String
-  updates: jsonb
+input SampleInput {
+  id: String!
+  name: String
+  description: String
+  timeZone: String
+  updatedBy: String!
 }
 
-type ActionOutput {
-  data: [json]
-  error: String!
+input organizationInput {
+  name: String!
+  description: String!
+  timeZone: String!
+  createdBy: String!
+  attributes: jsonb
 }
 
-type VerifyUserOutput {
-  message: String!
-  role: String
+type RegisterOutput {
+  id: String!
 }
 
-type CardOperationResult {
-  success: Boolean!
-  data: json
-  error: String
+type SignUpOutput {
+  id: uuid
+  userId: uuid
+  error: jsonb
 }
 
-type GeocodeOutput {
-  is_valid: Boolean!
-  latitude: Float
-  longitude: Float
-  postcode: String
+type Extensions {
+  path: String
+  code: String
 }
 
-type UploadOutput {
-  data: String!
-  error: String!
+type HasuraErrors {
+  extensions: Extensions
+  message: String
+}
+
+type SignInOutput {
+  id: uuid
+  userId: uuid
+  organizationId: uuid
+  token: String
+  error: jsonb
+}
+
+type SampleOutput {
+  id: String
+  name: String
+  description: String
+  timeZone: String
+  createdAt: String
+  createdBy: String
+  updatedAt: String
+  updatedBy: String
+}
+
+type organizationOutput {
+  id: uuid
+  name: String
+  description: String
+  timeZone: String
+  createdAt: String
+  createdBy: String
+  updatedAt: String
+  updatedBy: String
+  errors: [HasuraErrors]
+}
+
+type verifySignUpOutput {
+  id: uuid
+  user_id: uuid
+  organizationId: uuid
+  token: String
+  error: jsonb
+}
+
+type ResendCodeOutput {
+  id: uuid
+  error: jsonb
+}
+
+type VerifySignUpOutput {
+  id: uuid
+  userId: uuid
+  organizationId: uuid
+  token: String
+  error: jsonb
+}
+
+type RegistrationOutput {
+  id: uuid
+  error: jsonb
+}
+
+type SendInviteOutput {
+  message: String
+  error: jsonb
+}
+
+type AcceptInviteOutput {
+  message: String
+  error: jsonb
+}
+
+type DecodeCookieOutput {
+  data: jsonb
+  error: jsonb
+}
+
+type UserInfoOutput {
+  data: jsonb
+  error: jsonb
+}
+
+type forgotPasswordOutput {
+  id: uuid
+  userId: uuid
+  error: jsonb
+}
+
+type verificationOutput {
+  id: uuid
+  userId: uuid
+  isVerified: Boolean
+  error: jsonb
+}
+
+type setPasswordOutput {
+  id: uuid!
+  userId: uuid!
+  error: jsonb
+}
+
+type isLoginOutput {
+  user: jsonb
 }
 

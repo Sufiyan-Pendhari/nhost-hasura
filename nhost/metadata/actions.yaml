@@ -1,119 +1,72 @@
 actions:
-  - name: assign_shift
+  - name: forgot_password
     definition:
       kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/assign-shift'
-    permissions:
-      - role: worker
-  - name: cancel_shift
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/auth/forgot_password'
+  - name: registration
     definition:
       kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/cancel-shift'
-    permissions:
-      - role: worker
-  - name: client_users
-    definition:
-      kind: ""
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/fetch-client-users'
-      headers:
-        - name: nhost-webhook-secret
-          value_from_env: NHOST_WEBHOOK_SECRET
-    permissions:
-      - role: manager
-  - name: create_shift
-    definition:
-      kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/create-shift'
-      headers:
-        - name: nhost-webhook-secret
-          value_from_env: NHOST_WEBHOOK_SECRET
-    permissions:
-      - role: manager
-  - name: find_shift
-    definition:
-      kind: ""
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/find-shift'
-    permissions:
-      - role: worker
-  - name: geocode
-    definition:
-      kind: ""
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/geocode-action'
-      headers:
-        - name: nhost-webhook-secret
-          value: NHOST_WEBHOOK_SECRET
-    permissions:
-      - role: worker
-      - role: manager
-  - name: manager_operations
-    definition:
-      kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/manager-actions'
-      headers:
-        - name: nhost-webhook-secret
-          value_from_env: NHOST_WEBHOOK_SECRET
-    permissions:
-      - role: manager
-  - name: modify_shift
-    definition:
-      kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/modify-shift'
-    permissions:
-      - role: manager
-  - name: onboard_user
-    definition:
-      kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/onboard-user'
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/auth/registration'
     permissions:
       - role: user
-  - name: payment_operations
+  - name: resend_code
     definition:
       kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/payment-operations'
-    permissions:
-      - role: manager
-  - name: request_payout
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/auth/resend_code'
+  - name: send_invite
     definition:
       kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/request-payout'
-    permissions:
-      - role: worker
-  - name: set_fcm_token
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/auth/send_invite'
+  - name: set_password
     definition:
       kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/set-fcm-token'
-    permissions:
-      - role: user
-  - name: slack_notification
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/auth/set_password'
+  - name: sign_in
     definition:
       kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/slack-notification'
-  - name: upload_file
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/auth/sign_in'
+  - name: sign_up
     definition:
       kind: synchronous
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/upload-file'
-    permissions:
-      - role: worker
-  - name: verify_user
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/auth/sign_up'
+  - name: update_user
     definition:
-      kind: ""
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/verify-user'
-    permissions:
-      - role: public
-  - name: worker_earnings
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/user/update'
+  - name: verification
     definition:
-      kind: ""
-      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/worker-earnings'
-    permissions:
-      - role: worker
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/auth/verification'
+  - name: verify_sign_up
+    definition:
+      kind: synchronous
+      handler: '{{ACTION_BASE_URL}}/hasura/actions/auth/verify_sign_up'
 custom_types:
   enums: []
   input_objects:
-    - name: cardValues
+    - name: RegisterInput
+    - name: SignUpInput
+    - name: SignInInput
+    - name: SampleInput
+    - name: organizationInput
   objects:
-    - name: ActionOutput
-    - name: VerifyUserOutput
-    - name: CardOperationResult
-    - name: GeocodeOutput
-    - name: UploadOutput
+    - name: RegisterOutput
+    - name: SignUpOutput
+    - name: Extensions
+    - name: HasuraErrors
+    - name: SignInOutput
+    - name: SampleOutput
+    - name: organizationOutput
+    - name: verifySignUpOutput
+    - name: ResendCodeOutput
+    - name: VerifySignUpOutput
+    - name: RegistrationOutput
+    - name: SendInviteOutput
+    - name: AcceptInviteOutput
+    - name: DecodeCookieOutput
+    - name: UserInfoOutput
+    - name: forgotPasswordOutput
+    - name: verificationOutput
+    - name: setPasswordOutput
+    - name: isLoginOutput
   scalars: []

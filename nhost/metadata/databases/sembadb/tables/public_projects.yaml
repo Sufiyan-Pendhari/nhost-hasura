@@ -1,0 +1,80 @@
+table:
+  schema: public
+  name: projects
+object_relationships:
+  - name: organization
+    using:
+      foreign_key_constraint_on: organization_id
+  - name: project_lead
+    using:
+      foreign_key_constraint_on: project_lead_id
+array_relationships:
+  - name: members
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: project_users
+        insertion_order: null
+        column_mapping:
+          id: project_id
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - end_date
+        - start_date
+        - attributes
+        - created_by
+        - description
+        - name
+        - status
+        - updated_by
+        - created_at
+        - updated_at
+        - id
+        - organization_id
+        - project_lead_id
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - name
+        - description
+        - status
+        - start_date
+        - end_date
+        - attributes
+        - created_by
+        - updated_by
+        - created_at
+        - updated_at
+        - project_lead_id
+        - organization_id
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - end_date
+        - start_date
+        - attributes
+        - created_by
+        - description
+        - name
+        - status
+        - updated_by
+        - created_at
+        - updated_at
+        - id
+        - organization_id
+        - project_lead_id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: user
+    permission:
+      backend_only: false
+      filter: {}

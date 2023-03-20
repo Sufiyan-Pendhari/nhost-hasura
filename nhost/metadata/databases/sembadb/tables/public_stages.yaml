@@ -1,0 +1,7 @@
+table:
+  schema: public
+  name: stages
+object_relationships:
+  - name: assignee
+    using:
+      foreign_key_constraint_on: assignee_id

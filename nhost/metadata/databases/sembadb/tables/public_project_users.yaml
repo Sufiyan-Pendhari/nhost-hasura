@@ -1,0 +1,73 @@
+table:
+  schema: public
+  name: project_users
+object_relationships:
+  - name: project
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: projects
+        insertion_order: null
+        column_mapping:
+          project_id: id
+  - name: user
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: users
+        insertion_order: null
+        column_mapping:
+          user_id: id
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      columns:
+        - created_by
+        - updated_by
+        - created_at
+        - end_date
+        - start_date
+        - updated_at
+        - id
+        - organization_id
+        - project_id
+        - user_id
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - created_by
+        - updated_by
+        - created_at
+        - end_date
+        - start_date
+        - updated_at
+        - id
+        - organization_id
+        - project_id
+        - user_id
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - created_by
+        - updated_by
+        - created_at
+        - end_date
+        - start_date
+        - updated_at
+        - id
+        - organization_id
+        - project_id
+        - user_id
+      filter: {}
+      check: {}
+delete_permissions:
+  - role: user
+    permission:
+      backend_only: false
+      filter: {}
