@@ -1,0 +1,25 @@
+table:
+  name: app_constant
+  schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - id
+        - name
+        - value
+      filter: {}
+  - role: user
+    permission:
+      columns:
+        - id
+        - name
+        - value
+      filter: {}
+  - role: worker
+    permission:
+      columns:
+        - id
+        - name
+        - value
+      filter: {}

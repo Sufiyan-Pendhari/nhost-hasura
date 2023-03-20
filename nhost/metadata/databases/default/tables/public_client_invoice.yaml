@@ -1,0 +1,33 @@
+table:
+  name: client_invoice
+  schema: public
+array_relationships:
+  - name: client
+    using:
+      manual_configuration:
+        column_mapping:
+          client_id: id
+        insertion_order: null
+        remote_table:
+          name: client
+          schema: public
+  - name: items
+    using:
+      foreign_key_constraint_on:
+        column: invoice_id
+        table:
+          name: client_invoice_item
+          schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - end_period
+        - id
+        - start_period
+        - status
+        - stripe_payment_response
+        - total_amount
+      filter:
+        client_id:
+          _eq: X-Hasura-client-id

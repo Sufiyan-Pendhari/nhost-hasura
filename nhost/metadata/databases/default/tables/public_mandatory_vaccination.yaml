@@ -1,0 +1,13 @@
+table:
+  name: mandatory_vaccination
+  schema: public
+select_permissions:
+  - role: worker
+    permission:
+      columns:
+        - id
+        - role_id
+        - vacination_id
+        - name
+        - created_at
+      filter: {}

@@ -1,0 +1,152 @@
+type Mutation {
+  assign_shift(
+    shift_id: uuid!
+    worker_id: uuid!
+  ): ActionOutput
+}
+
+type Mutation {
+  cancel_shift(
+    shift_id: uuid!
+    worker_id: uuid!
+  ): ActionOutput
+}
+
+type Query {
+  client_users: ActionOutput
+}
+
+type Mutation {
+  create_shift(
+    request_from: String!
+    worker_role_id: Int!
+    data: json!
+  ): ActionOutput
+}
+
+type Query {
+  find_shift(
+    latitude: Float
+    longitude: Float
+    postcode: String
+    worker_role_ids: [Int!]!
+    filters: json
+  ): ActionOutput
+}
+
+type Query {
+  geocode(
+    post_code: String!
+  ): GeocodeOutput
+}
+
+type Mutation {
+  manager_operations(
+    action: String!
+    name: String!
+    phone: String!
+    manager_role_id: Int
+    client_id: uuid!
+    manager_id: uuid
+    email: String
+  ): ActionOutput
+}
+
+type Mutation {
+  modify_shift(
+    id: uuid!
+    action: String!
+    data: json
+  ): ActionOutput
+}
+
+type Mutation {
+  onboard_user(
+    user_id: uuid!
+    location_id: String
+  ): ActionOutput
+}
+
+type Mutation {
+  payment_operations(
+    operation: String!
+    payment_method: String
+  ): CardOperationResult
+}
+
+type Mutation {
+  request_payout(
+    amount: Int!
+  ): ActionOutput
+}
+
+type Mutation {
+  set_fcm_token(
+    token: String!
+  ): ActionOutput
+}
+
+type Mutation {
+  slack_notification(
+    message: String!
+  ): ActionOutput
+}
+
+type Mutation {
+  upload_file(
+    fileName: String!
+    file: String!
+  ): UploadOutput
+}
+
+type Query {
+  verify_user(
+    phone_number: String!
+  ): VerifyUserOutput
+}
+
+type Query {
+  worker_earnings(
+    worker_id: uuid!
+    start_time: String
+    end_time: String
+  ): ActionOutput
+}
+
+input cardValues {
+  stripe_customer_id: String!
+  payment_method: String
+  source: jsonb
+  card_id: String
+  account_id: String
+  updates: jsonb
+}
+
+type ActionOutput {
+  data: [json]
+  error: String!
+}
+
+type VerifyUserOutput {
+  message: String!
+  role: String
+}
+
+type CardOperationResult {
+  success: Boolean!
+  data: json
+  error: String
+}
+
+type GeocodeOutput {
+  is_valid: Boolean!
+  latitude: Float
+  longitude: Float
+  postcode: String
+}
+
+type UploadOutput {
+  data: String!
+  error: String!
+}
+

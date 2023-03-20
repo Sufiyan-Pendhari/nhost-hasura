@@ -1,0 +1,43 @@
+table:
+  name: client_user
+  schema: public
+object_relationships:
+  - name: bluebee_user
+    using:
+      foreign_key_constraint_on: user_id
+  - name: client
+    using:
+      foreign_key_constraint_on: client_id
+array_relationships:
+  - name: role
+    using:
+      manual_configuration:
+        column_mapping:
+          role_id: id
+        insertion_order: null
+        remote_table:
+          name: client_roles
+          schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - client_id
+        - id
+        - role_id
+        - user_id
+      filter:
+        client_id:
+          _eq: X-Hasura-client-id
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - client_id
+        - id
+        - role_id
+        - user_id
+      filter:
+        client_id:
+          _eq: X-Hasura-client-id
+      check: null

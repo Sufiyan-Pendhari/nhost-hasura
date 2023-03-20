@@ -1,0 +1,20 @@
+table:
+  name: client_invoice_item
+  schema: public
+object_relationships:
+  - name: client_invoice
+    using:
+      foreign_key_constraint_on: invoice_id
+  - name: shift
+    using:
+      foreign_key_constraint_on: shift_id
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - id
+        - invoice_id
+        - metadata
+        - shift_charges
+        - shift_id
+      filter: {}

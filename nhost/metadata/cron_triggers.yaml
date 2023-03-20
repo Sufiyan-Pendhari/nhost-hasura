@@ -1,0 +1,15 @@
+- name: generate_monthly_invoice
+  webhook: '{{NHOST_BACKEND_URL}}/v1/functions/cron/generate-monthly-invoice'
+  schedule: 0 3 1 * *
+  include_in_metadata: true
+  payload: {}
+- name: generate_weekly_invoice
+  webhook: '{{NHOST_BACKEND_URL}}/v1/functions/cron/generate-weekly-invoice'
+  schedule: 59 23 * * 0
+  include_in_metadata: true
+  payload: {}
+- name: shift_reminder
+  webhook: '{{NHOST_BACKEND_URL}}/v1/functions/cron/shift-reminder'
+  schedule: '*/30 * * * *'
+  include_in_metadata: true
+  payload: {}

@@ -1,0 +1,28 @@
+table:
+  name: worker_policy
+  schema: public
+array_relationships:
+  - name: accepted_by
+    using:
+      foreign_key_constraint_on:
+        column: policy_id
+        table:
+          name: worker_accepted_policies
+          schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - description
+        - id
+        - name
+        - tally_form_id
+      filter: {}
+  - role: worker
+    permission:
+      columns:
+        - description
+        - id
+        - name
+        - tally_form_id
+      filter: {}

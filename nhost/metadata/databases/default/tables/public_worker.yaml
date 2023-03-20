@@ -1,0 +1,123 @@
+table:
+  name: worker
+  schema: public
+array_relationships:
+  - name: accepted_policies
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: worker_accepted_policies
+          schema: public
+  - name: bluebee_user
+    using:
+      manual_configuration:
+        column_mapping:
+          user_id: id
+        insertion_order: null
+        remote_table:
+          name: bluebee_user
+          schema: public
+  - name: completed_training
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: worker_completed_training
+          schema: public
+  - name: future_shift_updates
+    using:
+      foreign_key_constraint_on:
+        column: worker_id
+        table:
+          name: future_shift_updates
+          schema: public
+  - name: selected_roles
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: worker_selected_roles
+          schema: public
+  - name: shifts
+    using:
+      foreign_key_constraint_on:
+        column: worker_id
+        table:
+          name: shift
+          schema: public
+  - name: vaccinations
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: worker_vaccination
+          schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - address
+        - avatar_url
+        - contact_details
+        - date_of_birth
+        - first_name
+        - gender
+        - last_name
+        - membership_id
+        - metadata
+        - rating
+        - user_id
+      filter: {}
+  - role: worker
+    permission:
+      columns:
+        - address
+        - avatar_url
+        - bank_details
+        - contact_details
+        - date_of_birth
+        - first_name
+        - gender
+        - last_name
+        - membership_id
+        - metadata
+        - next_of_kin
+        - rating
+        - status
+        - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+update_permissions:
+  - role: worker
+    permission:
+      columns:
+        - address
+        - avatar_url
+        - bank_details
+        - contact_details
+        - date_of_birth
+        - first_name
+        - gender
+        - last_name
+        - metadata
+        - next_of_kin
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+event_triggers:
+  - name: insert_mandatory_stuff
+    definition:
+      enable_manual: true
+      insert:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: '{{NHOST_BACKEND_URL}}/v1/functions/events/insert-mandatory-stuff'
+    headers:
+      - name: nhost-webhook-secret
+        value_from_env: NHOST_WEBHOOK_SECRET

@@ -1,0 +1,119 @@
+actions:
+  - name: assign_shift
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/assign-shift'
+    permissions:
+      - role: worker
+  - name: cancel_shift
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/cancel-shift'
+    permissions:
+      - role: worker
+  - name: client_users
+    definition:
+      kind: ""
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/fetch-client-users'
+      headers:
+        - name: nhost-webhook-secret
+          value_from_env: NHOST_WEBHOOK_SECRET
+    permissions:
+      - role: manager
+  - name: create_shift
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/create-shift'
+      headers:
+        - name: nhost-webhook-secret
+          value_from_env: NHOST_WEBHOOK_SECRET
+    permissions:
+      - role: manager
+  - name: find_shift
+    definition:
+      kind: ""
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/find-shift'
+    permissions:
+      - role: worker
+  - name: geocode
+    definition:
+      kind: ""
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/geocode-action'
+      headers:
+        - name: nhost-webhook-secret
+          value: NHOST_WEBHOOK_SECRET
+    permissions:
+      - role: worker
+      - role: manager
+  - name: manager_operations
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/manager-actions'
+      headers:
+        - name: nhost-webhook-secret
+          value_from_env: NHOST_WEBHOOK_SECRET
+    permissions:
+      - role: manager
+  - name: modify_shift
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/modify-shift'
+    permissions:
+      - role: manager
+  - name: onboard_user
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/onboard-user'
+    permissions:
+      - role: user
+  - name: payment_operations
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/payment-operations'
+    permissions:
+      - role: manager
+  - name: request_payout
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/request-payout'
+    permissions:
+      - role: worker
+  - name: set_fcm_token
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/set-fcm-token'
+    permissions:
+      - role: user
+  - name: slack_notification
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/slack-notification'
+  - name: upload_file
+    definition:
+      kind: synchronous
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/upload-file'
+    permissions:
+      - role: worker
+  - name: verify_user
+    definition:
+      kind: ""
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/verify-user'
+    permissions:
+      - role: public
+  - name: worker_earnings
+    definition:
+      kind: ""
+      handler: '{{NHOST_BACKEND_URL}}/v1/functions/actions/worker-earnings'
+    permissions:
+      - role: worker
+custom_types:
+  enums: []
+  input_objects:
+    - name: cardValues
+  objects:
+    - name: ActionOutput
+    - name: VerifyUserOutput
+    - name: CardOperationResult
+    - name: GeocodeOutput
+    - name: UploadOutput
+  scalars: []

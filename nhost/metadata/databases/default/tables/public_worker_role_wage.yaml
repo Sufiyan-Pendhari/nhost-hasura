@@ -1,0 +1,13 @@
+table:
+  name: worker_role_wage
+  schema: public
+array_relationships:
+  - name: role
+    using:
+      manual_configuration:
+        column_mapping:
+          worker_role_id: id
+        insertion_order: null
+        remote_table:
+          name: worker_roles
+          schema: public
