@@ -1,0 +1,10 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- INSERT INTO shift_status(status)
+-- VALUES
+-- ('ASSIGNED'),
+-- ('UNASSIGNED'),
+-- ('CLIENT_CANCELED'),
+-- ('WORKER_CANCELED'),
+-- ('IN_PROGRESS'),
+-- ('COMPLETED');

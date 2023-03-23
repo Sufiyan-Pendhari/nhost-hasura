@@ -1,0 +1,1 @@
+CREATE TABLE "public"."worker_vaccination" ("user_id" uuid NOT NULL, "name" text NOT NULL, "date" date NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "metadata" jsonb, PRIMARY KEY ("user_id") , FOREIGN KEY ("user_id") REFERENCES "public"."worker"("user_id") ON UPDATE restrict ON DELETE restrict, UNIQUE ("name", "user_id"));

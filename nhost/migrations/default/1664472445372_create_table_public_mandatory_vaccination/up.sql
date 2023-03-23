@@ -1,0 +1,1 @@
+CREATE TABLE "public"."mandatory_vaccination" ("id" serial NOT NULL, "name" text NOT NULL, "role_id" integer NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("id") , FOREIGN KEY ("role_id") REFERENCES "public"."worker_roles"("id") ON UPDATE restrict ON DELETE restrict);
