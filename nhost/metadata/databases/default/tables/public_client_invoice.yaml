@@ -1,0 +1,11 @@
+table:
+  name: client_invoice
+  schema: public
+array_relationships:
+  - name: items
+    using:
+      foreign_key_constraint_on:
+        column: invoice_id
+        table:
+          name: client_invoice_item
+          schema: public

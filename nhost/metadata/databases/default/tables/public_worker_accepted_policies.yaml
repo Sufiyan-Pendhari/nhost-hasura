@@ -1,0 +1,23 @@
+table:
+  name: worker_accepted_policies
+  schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - policy_id
+        - created_at
+        - id
+        - user_id
+      filter: {}
+      limit: 50
+  - role: worker
+    permission:
+      columns:
+        - policy_id
+        - created_at
+        - id
+        - user_id
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id

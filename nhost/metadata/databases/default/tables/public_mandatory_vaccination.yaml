@@ -1,0 +1,3 @@
+table:
+  name: mandatory_vaccination
+  schema: public

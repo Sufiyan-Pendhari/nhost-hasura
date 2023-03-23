@@ -1,0 +1,55 @@
+table:
+  name: worker_roles
+  schema: public
+array_relationships:
+  - name: client_wage
+    using:
+      foreign_key_constraint_on:
+        column: worker_role_id
+        table:
+          name: worker_role_wage
+          schema: public
+  - name: mandatory_trainings
+    using:
+      foreign_key_constraint_on:
+        column: role_id
+        table:
+          name: mandatory_training
+          schema: public
+  - name: mandatory_vaccinations
+    using:
+      foreign_key_constraint_on:
+        column: role_id
+        table:
+          name: mandatory_vaccination
+          schema: public
+  - name: worker_sub_roles
+    using:
+      foreign_key_constraint_on:
+        column: worker_role_id
+        table:
+          name: worker_sub_roles
+          schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - id
+        - name
+        - description
+        - updated_at
+      filter: {}
+  - role: user
+    permission:
+      columns:
+        - description
+        - id
+        - name
+      filter: {}
+  - role: worker
+    permission:
+      columns:
+        - description
+        - id
+        - name
+      filter: {}

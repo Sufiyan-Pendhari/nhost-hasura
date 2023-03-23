@@ -1,0 +1,3 @@
+table:
+  name: worker_role_wage
+  schema: public

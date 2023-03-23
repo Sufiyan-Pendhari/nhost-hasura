@@ -1,0 +1,34 @@
+table:
+  name: worker_training
+  schema: public
+array_relationships:
+  - name: mandatory_trainings
+    using:
+      foreign_key_constraint_on:
+        column: training_id
+        table:
+          name: mandatory_training
+          schema: public
+  - name: worker_completed_trainings
+    using:
+      foreign_key_constraint_on:
+        column: training_id
+        table:
+          name: worker_completed_training
+          schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - id
+        - name
+        - description
+        - updated_at
+      filter: {}
+  - role: worker
+    permission:
+      columns:
+        - description
+        - id
+        - name
+      filter: {}

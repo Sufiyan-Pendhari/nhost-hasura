@@ -1,231 +1,84 @@
 type Mutation {
-  forgot_password(
-    email: String
-  ): forgotPasswordOutput
+  assign_shift(
+    shift_id: uuid!
+    worker_id: uuid!
+  ): ActionOutput
 }
 
 type Mutation {
-  registration(
-    name: String
-    website: String
-    firstName: String
-    lastName: String
-    email: String
-  ): RegistrationOutput
+  cancel_shift(
+    shift_id: uuid!
+    worker_id: uuid!
+  ): ActionOutput
 }
 
 type Mutation {
-  resend_code(
-    email: String
-  ): ResendCodeOutput
+  create_shift(
+    request_from: String!
+    worker_role_id: Int!
+    data: json!
+  ): ActionOutput
 }
 
 type Mutation {
-  send_invite(
-    emails: String
-    id: uuid
-    invitedProjectId: uuid
-  ): SendInviteOutput
+  create_user(
+    name: String!
+    phone: String!
+    worker_selected_role_id: Int
+    client_id: uuid
+    user_role: String!
+  ): ActionOutput
+}
+
+type Query {
+  find_shift(
+    latitude: Float
+    longitude: Float
+    postcode: String
+    worker_role_ids: [Int!]!
+    filters: json
+  ): ActionOutput
 }
 
 type Mutation {
-  set_password(
+  modify_shift(
     id: uuid!
-    userId: uuid!
-    password: String!
-    cnfPassword: String!
-  ): setPasswordOutput
+    action: String!
+    data: json
+  ): ActionOutput
 }
 
 type Mutation {
-  sign_in(
-    email: String!
-    password: String!
-  ): SignInOutput
+  request_payout(
+    amount: Int!
+  ): ActionOutput
 }
 
 type Mutation {
-  sign_up(
-    password: String!
-    email: String!
-  ): SignUpOutput
+  set_fcm_token(
+    token: String!
+  ): ActionOutput
 }
 
 type Mutation {
-  update_user(
-    firstName: String
-    lastName: String
-    email: String
-  ): UserInfoOutput
+  slack_notification(
+    message: String!
+  ): ActionOutput
 }
 
-type Mutation {
-  verification(
-    id: uuid!
-    userId: uuid!
-    code: String!
-  ): verificationOutput
+type Query {
+  verify_user(
+    phone_number: String!
+  ): VerifyUserOutput
 }
 
-type Mutation {
-  verify_sign_up(
-    id: uuid!
-    userId: uuid!
-    code: String!
-  ): VerifySignUpOutput
+type ActionOutput {
+  data: [json]
+  error: String!
 }
 
-input RegisterInput {
-  companyName: String!
-  firstName: String!
-  lastName: String!
-  password: String!
-  email: String!
-}
-
-input SignUpInput {
-  password: String!
-  email: String!
-}
-
-input SignInInput {
-  email: String!
-  password: String!
-}
-
-input SampleInput {
-  id: String!
-  name: String
-  description: String
-  timeZone: String
-  updatedBy: String!
-}
-
-input organizationInput {
-  name: String!
-  description: String!
-  timeZone: String!
-  createdBy: String!
-  attributes: jsonb
-}
-
-type RegisterOutput {
-  id: String!
-}
-
-type SignUpOutput {
-  id: uuid
-  userId: uuid
-  error: jsonb
-}
-
-type Extensions {
-  path: String
-  code: String
-}
-
-type HasuraErrors {
-  extensions: Extensions
-  message: String
-}
-
-type SignInOutput {
-  id: uuid
-  userId: uuid
-  organizationId: uuid
-  token: String
-  error: jsonb
-}
-
-type SampleOutput {
-  id: String
-  name: String
-  description: String
-  timeZone: String
-  createdAt: String
-  createdBy: String
-  updatedAt: String
-  updatedBy: String
-}
-
-type organizationOutput {
-  id: uuid
-  name: String
-  description: String
-  timeZone: String
-  createdAt: String
-  createdBy: String
-  updatedAt: String
-  updatedBy: String
-  errors: [HasuraErrors]
-}
-
-type verifySignUpOutput {
-  id: uuid
-  user_id: uuid
-  organizationId: uuid
-  token: String
-  error: jsonb
-}
-
-type ResendCodeOutput {
-  id: uuid
-  error: jsonb
-}
-
-type VerifySignUpOutput {
-  id: uuid
-  userId: uuid
-  organizationId: uuid
-  token: String
-  error: jsonb
-}
-
-type RegistrationOutput {
-  id: uuid
-  error: jsonb
-}
-
-type SendInviteOutput {
-  message: String
-  error: jsonb
-}
-
-type AcceptInviteOutput {
-  message: String
-  error: jsonb
-}
-
-type DecodeCookieOutput {
-  data: jsonb
-  error: jsonb
-}
-
-type UserInfoOutput {
-  data: jsonb
-  error: jsonb
-}
-
-type forgotPasswordOutput {
-  id: uuid
-  userId: uuid
-  error: jsonb
-}
-
-type verificationOutput {
-  id: uuid
-  userId: uuid
-  isVerified: Boolean
-  error: jsonb
-}
-
-type setPasswordOutput {
-  id: uuid!
-  userId: uuid!
-  error: jsonb
-}
-
-type isLoginOutput {
-  user: jsonb
+type VerifyUserOutput {
+  message: String!
+  role: String
 }
 

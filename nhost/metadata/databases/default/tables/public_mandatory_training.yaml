@@ -1,0 +1,10 @@
+table:
+  name: mandatory_training
+  schema: public
+object_relationships:
+  - name: worker_role
+    using:
+      foreign_key_constraint_on: role_id
+  - name: worker_training
+    using:
+      foreign_key_constraint_on: training_id

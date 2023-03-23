@@ -1,0 +1,67 @@
+table:
+  name: worker
+  schema: public
+array_relationships:
+  - name: accepted_policies
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: worker_accepted_policies
+          schema: public
+  - name: completed_training
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: worker_completed_training
+          schema: public
+  - name: selected_roles
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: worker_selected_roles
+          schema: public
+  - name: shifts
+    using:
+      foreign_key_constraint_on:
+        column: worker_id
+        table:
+          name: shift
+          schema: public
+  - name: vaccinations
+    using:
+      foreign_key_constraint_on:
+        column: user_id
+        table:
+          name: worker_vaccination
+          schema: public
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - first_name
+        - last_name
+        - user_id
+      filter: {}
+  - role: worker
+    permission:
+      columns:
+        - address
+        - first_name
+        - last_name
+        - next_of_kin
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+update_permissions:
+  - role: worker
+    permission:
+      columns:
+        - address
+        - next_of_kin
+      filter:
+        user_id:
+          _eq: X-Hasura-User-Id
+      check: null

@@ -1,0 +1,3 @@
+table:
+  name: client_invoice_item
+  schema: public

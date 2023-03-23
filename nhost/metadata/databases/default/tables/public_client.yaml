@@ -1,0 +1,65 @@
+table:
+  name: client
+  schema: public
+array_relationships:
+  - name: employees
+    using:
+      foreign_key_constraint_on:
+        column: client_id
+        table:
+          name: client_user
+          schema: public
+  - name: shifts
+    using:
+      foreign_key_constraint_on:
+        column: client_id
+        table:
+          name: shift
+          schema: public
+remote_relationships:
+  - definition:
+      hasura_fields:
+        - stripe_customer_id
+      remote_field:
+        stripe:
+          arguments: {}
+          field:
+            customer:
+              arguments:
+                id: $stripe_customer_id
+      remote_schema: stripe
+    name: stripeCustomer
+select_permissions:
+  - role: manager
+    permission:
+      columns:
+        - id
+        - name
+        - cqc_location_id
+        - address
+        - contact
+        - cqc_api_response
+        - bank_details
+        - point_of_contact
+        - created_at
+        - updated_at
+        - default_wage
+      filter:
+        id:
+          _eq: X-Hasura-client-id
+update_permissions:
+  - role: manager
+    permission:
+      columns:
+        - address
+        - bank_details
+        - contact
+        - cqc_api_response
+        - cqc_location_id
+        - default_wage
+        - name
+        - point_of_contact
+      filter:
+        id:
+          _eq: X-Hasura-client-id
+      check: null

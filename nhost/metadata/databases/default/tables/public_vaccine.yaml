@@ -1,0 +1,10 @@
+table:
+  name: vaccine
+  schema: public
+select_permissions:
+  - role: worker
+    permission:
+      columns:
+        - id
+        - name
+      filter: {}
